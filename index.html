@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Glosin Couture</title>
+    <style>
+      body{margin: 0;font font-family:sans-serif;}
+      header {
+        background-color: #222;
+        color: white;
+        padding: 16px 24px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        background-color: #222;
+        color: white;
+      }
+      header h1{
+        margin: 0;
+        font-size: 24px;
+      }
+      nav{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      nav a{color: white;text-decoration: none;}
+      nav a:hover{
+        text-decoration: underline;
+      }
+      .card{
+        position: relative;
+          text-align: center;
+      }
+      .card img{
+          width: 100px;
+          height: auto;
+          aspect-ratio: 1/1;
+          object-fit: cover;
+          background-color: #f4f4f4;
+      }
+      .price{
+          font-size: 13px;
+          color: #444;
+          margin: 0 0 10px;
+      }
+      .cart{
+        background-color: white;
+        color: #222;
+        padding: 6px 14px;
+        border-radius: 20px;
+      }
+      .card button{
+          padding: 10px;
+          background-color: #111;
+          color: white;
+          border: none;
+          cursor: pointer;
+      }
+      .card{position: relative;}
+      .badge{
+        position: absolute;
+        top: 8px;
+        left: 35%;
+        z-index: 1;
+        background-color: #c0392b;
+        color: white;
+        padding: 3px 8px;
+        font-size: 11px;
+        text-transform: uppercase;
+      }
+      .old-price{
+        text-decoration: line-through;
+        color: #888;
+        margin-right: 8px;
+      }
+      html{
+        scroll-behavior: smooth;
+      }
+      .hero{
+        text-align: center;
+        padding: 80px 24px;
+        background-color: #f4ece3;
+      }
+      .hero h2{
+        margin: 0 0 12px;
+        font-size: 28px;
+      }
+      .hero p{
+        margin: 0 0 24px;
+        font-size: 18px;
+      }
+      .hero-btn{
+        display: inline-block;
+        padding: 12px 32px;
+        background-color: #222;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+      }
+      .hero-btn:hover{
+        background-color: #444;
+      }
+      .caps{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 16px;
+      }
+      .name{
+      font-size: 14px;
+      margin: 10px 0 4px;
+      }
+      .shoes{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 16px;
+      }
+      .wears{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 16px;
+      }
+      .products{
+        text-align: center;
+        margin: 32px0 16px;
+      }
+      @media (max-width: 600px) {
+        .grid{ grid-template-columns: repeat(3, 1fr);}
+      }
+      .remove-btn {
+        margin-left: 8px;
+        padding: 2pz 10px;
+        background-color: #c0392b;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .cart-box ul {
+        padding-left: 20px;
+      }
+      .payment {
+        border: 1px solid #bbb;
+        border-radius: 8px;
+        padding: 10px 14px;
+      }
+      .payment label {
+        display: block;
+        margin: 8px 0;
+        font-weight: normal;
+      }
+      .payment legend {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0 6px;
+      }
+      .checkout {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 420px;
+        margin: 32px auto;
+        padding: 24px;
+        background-color: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+      }
+      .checkout h2 {
+        margin: 0 0 8px;
+        text-align: center;
+      }
+      .checkout label {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .checkout input[type="text"],
+      .checkout input[type="tel"],
+      .checkout textarea {
+       width: 100px; 
+       box-sizing: border-box;
+       padding: 12px;
+       border: 1px solid #bbb;
+       border-radius: 8px;
+       font-size: 16px;
+       font-family: inherit;
+      }
+      .checkout input:focus
+      .checkout textarea:focus{
+        outline: 2px solid #111;
+        border-color: #111;
+      }
+      .place-order {
+        padding: 14px;
+        background-color: #111;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .place-order:hover {
+        background-color: #444;
+      }
+      #order-message {
+        margin: 0;
+        text-align: center;
+        color: #1e7e34;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Glosin Couture</h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">products</a>
+        <a href="#" class="cart">Cart(<span id="cart-count">0</span>)</a>
+      </nav>
+    </header>
+    <section class="hero">
+      <h2>New Style Are Here</h2>
+      <p>Comfortable clothes you will like to wear everyday</p>
+      <a href="#products" class="hero-btn">Shop Now</a>
+    </section>
+    <h2 class="products">Bundle picks</h2>
+    <section class="caps" id="caps">
+      <div class="card">
+        <span class="badge">sale</span>
+        <img src="collection_of_ caps.jpeg" alt="collection of caps" />
+        <p class="name">collection of caps</p>
+        <p class="price"><span class="old-price">$7000</span>$6000</p>
+        <button data-name="collection of caps" data-price="6000">Add to cart</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="white _cap.jpeg" alt="white cap " />
+        <p class="name">white cap</p>
+        <p class="price">$8000</p>
+        <button data-name="white cap" data-price="8000">Add to cart</button>
+      </div>
+      <div class="card">
+        <img src="blue_ cap.jpeg" alt="blue cap" />
+        <p class="name">Blue cap</p>
+        <p class="price">$8000</p>
+        <button data-name="blue cap" data-price="8000">Add to cart</button>
+      </div>
+    </section>
+    <a href="#caps" class="see-all">See All Caps</a>
+    <h2 class="products">New collections</h2>
+    <section class="shoes" id="shoes">
+      <div class="card">
+        <img src="red _shoe.jpeg" alt="red shoe" />
+        <p class="name">red shoe</p>
+        <p class="price">$28000</p>
+        <button data-name="red shoe" data-price="28000">Add to cart</button>
+      </div>
+      <div class="card">
+        <img src="red _strap shoe.jpeg" alt="red strap" />
+        <p class="name">red strap shoe</p>
+        <p class="price">$28000</p>
+        <button data-name="red strap shoe" data-price="28000">Add to cart</button>
+      </div>
+    <div class="card">
+      <img src="big _boot.jpeg" alt="shoe" />
+      <p class="name">boot</p>
+      <p class="price">$21000</p>
+      <button data-name="boot" data-price="21000">Add to cart</button>
+    </div>
+    <div class="card">
+      <img src="purple_shoe.jpeg" alt="purple shoe" />
+      <p class="name">purple shoe</p>
+      <p class="price">$25000</p>
+      <button data-name="cover shoe" data-price="25000">Add to cart</button>
+    </div>
+    <div class="card">
+      <img src="white_shoe.jpeg" alt=" white shoe" />
+      <p class="name">white shoe</p>
+      <p class="price">$13000</p>
+      <button data-name="cover shoe" data-price="13000">Add to cart</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="baby_shoe.jpeg" alt="shoe" />
+    <p class="name">baby shoes</p>
+    <p class="price">$14000</p>
+    <button data-name="baby shoe" data-price="14000">Add to cart</button>
+  </div>
+    </section>
+    <a href="#shoes" class="see-all">See All Shoes</a>
+    <h2 class="products">bestseller</h2>
+    <section class="wears" id="corporate">
+      <div class="card">
+        <img src="luxury_jacket.jpeg" alt="jacket" />
+        <p class="name">luxury jacket</p>
+        <p class="price">#18000</p>
+        <button data-name="luxury jacket" data-price="18000">Add to cart</button>
+      </div>
+      <div class="card">
+        <img src="corporate_ gown.jpeg" alt="corporate gown" />
+        <p class="name">corporate gown</p>
+        <p class="price">#25000</p>
+        <button data-name="corporate gown" data-price="25000">Add to cart</button>
+      </div>
+      <div class="card">
+        <img src="wool_ jacket.jpeg" alt="Wool jacket" />
+        <p class="name">wool jacket</p>
+        <p class="price">#30000</p>
+        <button data-name="wool jacket" data-price="30000">Add to cart</button>
+      </div>
+    </section>
+    <a href="#wears" class="see-all">See All Wears</a>
+    <section class="cart-box">
+      <h2>Your Cart</h2>
+      <ul id="cart-list"></ul>
+      <p>Total: $<span id="cart-total">0</span></p>
+    </section>
+    <form class="checkout" id="checkout-form">
+      <h2>Checkout</h2>
+      <label for="cname">full name</label>
+      <input type="text" id="cname" required />
+      <label for="cphone">Phone Number</label>
+      <input type="tel" id="cphone" required />
+      <label for="caddress">Deliver address</label>
+      <textarea id="caddress" rows="1" required></textarea>
+        <fieldset class="payment">
+          <legend>payment method</legend>
+          <label>
+            <input type="radio" name="payment" value="Cash on delivery" checked />
+            cash on delivery
+          </label>
+          <label>
+            <input type="radio" name="payment" value="Bank transfer" checked />
+            Bank transfer
+          </label>
+        </fieldset>
+        <button type="submit" class="place-order">Place order</button>
+        <p id="order-message"></p>
+    </form>
+    <footer>
+      <p>@ 2026 Hub.All rights reserved</p>
+    </footer> 
+    <script>
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartCount = document.getElementById("cart-count");
+      const cartList = document.getElementById("cart-list");
+      const cartTotal = document.getElementById("cart-total");
+      const form = document.getElementById("checkout-form");
+      const message = document.getElementById("order-message");
+      document.querySelectorAll("button[data-name]").forEach(function(button) {
+        button.addEventListener("click", function () {
+          cart.push({
+            name:button.dataset.name,
+            price: Number(button.dataset.price)
+          });
+          showCart();
+        });
+      });
+      function showCart() {
+        cartList.innerHTML ="";
+        let total = 0;
+        cart.forEach(function(card,index) {
+          const li = document.createElement("li");
+          li.textContent = card.name + "- $" + card.price.toLocaleString() + "";
+          const removeBtn=document.createElement("button");
+          removeBtn.textContent = "Remove";
+          removeBtn.className ="remove-btn";
+          removeBtn.addEventListener("click", function (){
+            cart.splice(index, 1);
+            showCart();
+           });
+           li.appendChild(removeBtn);
+          cartList.appendChild(li);
+          total = total + card.price;
+        });
+        cartCount.textContent = cart.length;
+        cartTotal.textContent = total.toLocaleString();
+      localStorage.setItem("cart", JSON.stringify(cart));
+      };
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        if (cart.length === 0) {
+          message.textContent = "Your cart is empty. Add an item first.";
+          return;
+        }
+        const name = document.getElementById("cname").value;
+        const selected = document.querySelector('input[name="paymemt"]:checked');
+        const method = selected ? selected.value : "Cash on delivery";
+        const total = cartTotal.textContent;
+        let note = "";
+        if (method ==="cash on delivery") {
+          note = " Pay $" + total + " in cash when your order arrives.";
+        } else {
+          note = "Transfer $" + total + "to: [OPAY, 9159810338,JULIUS OLUWATOSIN ODUNAYO].";
+        }
+        message.textContent = "Thank you," + name + "! Your order has been placed." + note;
+        cart = [];
+        showCart();
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
